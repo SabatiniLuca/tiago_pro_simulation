@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>tiago_v2_prototype_controller_configuration_gazebo</name>
+  <version>0.0.0</version>
+  <description>The tiago_v2_prototype_controller_configuration_gazebo package</description>
+
+  <maintainer email="narcis.miguel@pal-robotics.com">Narcis Miguel</maintainer>
+
+  <license>Propietary</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>tiago_v2_prototype_controller_configuration</exec_depend>
+
+</package>
