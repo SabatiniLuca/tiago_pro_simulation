@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
 
-  <rosparam command="load" file="$(find tiago_dual_controller_configuration)/config/joint_trajectory/joint_trajectory_controllers.yaml" />
-  <rosparam command="load" file="$(find tiago_dual_controller_configuration_gazebo)/config/mobile_base_controller.yaml" />
+  <rosparam command="load" file="$(find tiago_v2_prototype_controller_configuration)/config/joint_trajectory_controllers.yaml" />
+  <rosparam command="load" file="$(find tiago_v2_prototype_controller_configuration_gazebo)/config/mobile_base_controller.yaml" />
   <rosparam command="load" file="$(find joint_state_controller)/joint_state_controller.yaml" />
 
   <param name="mobile_base_controller/base_frame_id" value="/base_footprint"/>
@@ -12,7 +12,6 @@
   <arg name="controller_list"
        value="joint_state_controller
               torso_controller
-              head_controller
               arm_left_controller
               arm_right_controller
               mobile_base_controller"/>
