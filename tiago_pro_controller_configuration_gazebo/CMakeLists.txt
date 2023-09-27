@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(tiago_v2_prototype_controller_configuration_gazebo)
+project(tiago_pro_controller_configuration_gazebo)
 find_package(catkin REQUIRED)
 catkin_package()
 

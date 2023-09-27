@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
 
-  <include file="$(find tiago_v2_prototype_controller_configuration_gazebo)/launch/tiago_v2_prototype_controllers.launch"/>
+  <include file="$(find tiago_pro_controller_configuration_gazebo)/launch/tiago_pro_controllers.launch"/>
 
   <!-- Robot state publisher -->
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
