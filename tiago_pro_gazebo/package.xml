@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>tiago_v2_prototype_gazebo</name>
+  <name>tiago_pro_gazebo</name>
   <version>0.0.0</version>
-  <description>The tiago_v2_prototype_gazebo package</description>
+  <description>The tiago_pro_gazebo package</description>
 
   <maintainer email="narcis.miguel@pal-robotics.com">Narcis Miguel</maintainer>
 
@@ -14,7 +14,7 @@
   <exec_depend>pal_gazebo_plugins</exec_depend>
   <exec_depend>pal_gazebo_worlds</exec_depend>
   <exec_depend>pal_hardware_gazebo</exec_depend>
-  <exec_depend>tiago_v2_prototype_controller_configuration_gazebo</exec_depend>
-  <exec_depend>tiago_v2_prototype_description</exec_depend>
+  <exec_depend>tiago_pro_controller_configuration_gazebo</exec_depend>
+  <exec_depend>tiago_pro_description</exec_depend>
 
 </package>
