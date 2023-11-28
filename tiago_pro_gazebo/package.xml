@@ -1,20 +1,27 @@
 <?xml version="1.0"?>
-<package format="2">
+<package format="3">
   <name>tiago_pro_gazebo</name>
   <version>0.0.0</version>
   <description>The tiago_pro_gazebo package</description>
 
   <maintainer email="narcis.miguel@pal-robotics.com">Narcis Miguel</maintainer>
+  <maintainer email="ilenia.perrella@pal-robotics.com">Ilenia Perrella</maintainer>
 
-  <license>Propietary</license>
+  <license>Apache License 2.0</license>
 
-  <buildtool_depend>catkin</buildtool_depend>
-  
+ <buildtool_depend>ament_cmake_auto</buildtool_depend>
+
+
   <exec_depend>gazebo_plugins</exec_depend>
   <exec_depend>pal_gazebo_plugins</exec_depend>
   <exec_depend>pal_gazebo_worlds</exec_depend>
   <exec_depend>pal_hardware_gazebo</exec_depend>
-  <exec_depend>tiago_pro_controller_configuration_gazebo</exec_depend>
+  <exec_depend>tiago_pro_controller_configuration</exec_depend>
   <exec_depend>tiago_pro_description</exec_depend>
+
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
 
 </package>

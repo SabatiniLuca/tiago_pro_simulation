@@ -1,18 +1,19 @@
 <?xml version="1.0"?>
-<package format="2">
+<package format="3">
   <name>tiago_pro_simulation</name>
   <version>0.0.0</version>
   <description>The tiago_pro_simulation package</description>
 
   <maintainer email="narcis.miguel@pal-robotics.com">Narcis Miguel</maintainer>
+  <maintainer email="ilenia.perrella@pal-robotics.com">Ilenia Perrella</maintainer>
 
-  <license>Propietary</license>
+  <license>Apache License 2.0</license>
+  
+  <buildtool_depend>ament_cmake</buildtool_depend>
 
-  <buildtool_depend>catkin</buildtool_depend>
-  <exec_depend>tiago_pro_controller_configuration_gazebo</exec_depend>
   <exec_depend>tiago_pro_gazebo</exec_depend>
 
   <export>
-    <metapackage/>
+    <build_type>ament_cmake</build_type>
   </export>
 </package>
