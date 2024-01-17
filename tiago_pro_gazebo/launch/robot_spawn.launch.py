@@ -21,41 +21,28 @@ from launch_ros.actions import Node
 
 def generate_launch_description():
 
-    #    This format doesn't work because we have to expand gzpose into
-    #    different args for spawn_entity.py
-    #    gz_pose = DeclareLaunchArgument(
-    #        'gzpose', default_value='-x 0 -y 0 -z 0.0 -R 0.0 -P 0.0 -Y 0.0 ',
-    #        description='Spawn gazebo position as provided to spawn_entity.py'
-    #    )
+    model_name = DeclareLaunchArgument(
+        "model_name", default_value="tiago_pro", description="Gazebo model name"
+    )
 
-    # @TODO: load PID gains? used in gazebo_ros_control fork
-    # @TODO: load tiago_pal_hardware_gazebo
+    tiago_pro_entity = Node(
+        package="gazebo_ros",
+        executable="spawn_entity.py",
+        arguments=[
+            "-topic",
+            "robot_description",
+            "-entity",
+            LaunchConfiguration("model_name"),
+            # LaunchConfiguration('gzpose'),
+        ],
+        output="screen",
+    )
+
+    # Create the launch description and populate
     ld = LaunchDescription()
 
-    declare_launch_arguments(ld)
-    declare_actions(ld)
+    # ld.add_action(gz_pose)
+    ld.add_action(model_name)
+    ld.add_action(tiago_pro_entity)
 
     return ld
-
-
-def declare_launch_arguments(launch_description: LaunchDescription):
-    robot_name = DeclareLaunchArgument(
-        'robot_name',
-        description='Gazebo model name'
-    )
-    launch_description.add_action(robot_name)
-    return
-
-
-def declare_actions(launch_description: LaunchDescription):
-
-    robot_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
-                        arguments=['-topic', 'robot_description',
-                                   '-entity', LaunchConfiguration(
-                                       'robot_name'),
-                                   # LaunchConfiguration('gzpose'),
-                                   ],
-                        output='screen')
-    launch_description.add_action(robot_entity)
-
-    return
