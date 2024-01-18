@@ -9,8 +9,8 @@
   </rosparam>
 
   <!-- PID gains -->
-  <rosparam command="load" file="$(find tiago_pro_controller_configuration_gazebo)/config/pids.yaml"/>
-  <rosparam command="load" file="$(find tiago_pro_controller_configuration_gazebo)/config/hardware_gazebo/tiago_pro_pal_hardware_gazebo.yaml"/>
+  <rosparam command="load" file="$(find tiago_pro_gazebo)/config/pids.yaml"/>
+  <rosparam command="load" file="$(find tiago_pro_gazebo)/config/hardware_gazebo/tiago_pro_pal_hardware_gazebo.yaml"/>
 
   <!-- Robot model -->
   <include file="$(find tiago_pro_description)/robots/upload.launch"/>  
