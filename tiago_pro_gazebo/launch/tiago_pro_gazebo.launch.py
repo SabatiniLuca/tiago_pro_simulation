@@ -61,6 +61,11 @@ def generate_launch_description():
     moveit_arg = DeclareLaunchArgument(
         "moveit", default_value="false", description="Specify if launching MoveIt2"
     )
+    
+    world_name_arg = DeclareLaunchArgument(
+        'world_name', default_value='empty',
+        description="Specify world name, we'll convert to full path"
+    )
 
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
@@ -114,6 +119,7 @@ def generate_launch_description():
     ld.add_action(SetEnvironmentVariable(
         "GAZEBO_MODEL_PATH", model_path))
 
+    ld.add_action(world_name_arg)
     ld.add_action(gazebo)
     ld.add_action(tiago_pro_spawn)
     ld.add_action(tiago_pro_bringup)
