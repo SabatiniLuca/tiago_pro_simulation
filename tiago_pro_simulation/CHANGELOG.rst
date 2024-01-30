@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_simulation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.0 (2024-01-30)
+------------------
 * Merge branch 'ros2-migration' into 'humble-devel'
   Ros2 migration
   See merge request robots/tiago_pro_simulation!5
