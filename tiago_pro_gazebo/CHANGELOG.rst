@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.2 (2024-02-19)
+------------------
 * Merge branch 'tpe/add_tuck_arm' into 'master'
   Tpe/add tuck arm
   See merge request robots/tiago_pro_simulation!7

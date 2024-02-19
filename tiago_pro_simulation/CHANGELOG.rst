@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_simulation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.2 (2024-02-19)
+------------------
 * Merge branch 'fix/gazebo_launch' into 'master'
   Fix gazbo launch file and remove duplicated launchfile
   See merge request robots/tiago_pro_simulation!4
