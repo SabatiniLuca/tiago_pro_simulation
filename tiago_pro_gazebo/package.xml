@@ -15,5 +15,7 @@
   <exec_depend>pal_gazebo_worlds</exec_depend>
   <exec_depend>pal_hardware_gazebo</exec_depend>
   <exec_depend>tiago_pro_description</exec_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>play_motion_msgs</run_depend>
 
 </package>
