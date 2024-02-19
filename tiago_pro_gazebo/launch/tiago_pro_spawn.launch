@@ -5,6 +5,9 @@
 
  <rosparam ns="pal_robot_info" subst_value="true">
     type: "tiago_pro"
+    end_effector_left: "pal-pro-gripper"
+    end_effector_right: "pal-pro-gripper"
+    robot_camera_frame: "head_d435_camera_color_optical_frame"
     base_type: "omni_base"
   </rosparam>
 

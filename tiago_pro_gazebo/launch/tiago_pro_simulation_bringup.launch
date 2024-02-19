@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
+  <arg name="public_sim"     default="false"/>
+  <arg name="use_moveit_camera" default="false"/>
+  <arg name="advanced_grasping" default="false"/> <!-- Requires extra software from PAL Robotics -->
 
-  <arg name="is_simulation"     default="true"/>
+  <arg name="is_simulation" default="true"/>
 
   <include file="$(find tiago_pro_controller_configuration)/launch/tiago_pro_controllers.launch">
     <arg name="is_simulation" value="$(arg is_simulation)"/>
+    <arg name="use_moveit_camera" value="$(arg use_moveit_camera)"/>
+    <arg name="public_sim" value="$(arg public_sim)"/>
+    <arg name="advanced_grasping" value="$(arg advanced_grasping)" unless="$(arg public_sim)"/>
   </include>
 
   <!-- Play motion -->

@@ -1,17 +1,14 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(tiago_pro_gazebo)
 
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED COMPONENTS)
+catkin_package()
 
-catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES canopies_gazebo
-#  CATKIN_DEPENDS other_catkin_pkg
-#  DEPENDS system_lib
-)
-
-
-foreach(dir launch scripts)
+foreach(dir config launch scripts)
     install(DIRECTORY ${dir}/
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
 endforeach(dir)
+
+install(PROGRAMS scripts/tuck_arm.py
+        DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
