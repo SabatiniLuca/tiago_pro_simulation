@@ -59,7 +59,7 @@ def get_resource_paths(packages_names):
 def generate_launch_description():
 
     moveit_arg = DeclareLaunchArgument(
-        "moveit", default_value="false", description="Specify if launching MoveIt2"
+        "moveit", default_value="true", description="Specify if launching MoveIt 2"
     )
     
     world_name_arg = DeclareLaunchArgument(
