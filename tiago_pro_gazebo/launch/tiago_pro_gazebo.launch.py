@@ -61,10 +61,11 @@ def generate_launch_description():
     moveit_arg = DeclareLaunchArgument(
         "moveit", default_value="true", description="Specify if launching MoveIt 2"
     )
-    
+
     world_name_arg = DeclareLaunchArgument(
-        'world_name', default_value='empty',
-        description="Specify world name, we'll convert to full path"
+        "world_name",
+        default_value="empty",
+        description="Specify world name, we'll convert to full path",
     )
 
     gazebo = IncludeLaunchDescription(
@@ -79,13 +80,15 @@ def generate_launch_description():
     )
 
     tiago_pro_spawn = include_launch_py_description(
-        "tiago_pro_gazebo", ["launch", "robot_spawn.launch.py"],
-        launch_arguments={'use_sim_time': 'true'}.items()
+        "tiago_pro_gazebo",
+        ["launch", "robot_spawn.launch.py"],
+        launch_arguments={"use_sim_time": "true"}.items(),
     )
 
     tiago_pro_bringup = include_launch_py_description(
-        "tiago_pro_bringup", ["launch", "tiago_pro_bringup.launch.py"],
-        launch_arguments={'use_sim_time': 'true'}.items()
+        "tiago_pro_bringup",
+        ["launch", "tiago_pro_bringup.launch.py"],
+        launch_arguments={"use_sim_time": "true"}.items(),
     )
 
     # TODO
@@ -98,11 +101,15 @@ def generate_launch_description():
     move_group = include_launch_py_description(
         "tiago_pro_moveit_config",
         ["launch", "move_group.launch.py"],
-        launch_arguments={'use_sim_time': 'true'}.items(),
+        launch_arguments={"use_sim_time": "true"}.items(),
         condition=IfCondition(LaunchConfiguration("moveit")),
     )
-    packages = ['tiago_pro_description', 'pal_sea_arm_description',
-                'omni_base_description', 'pal_pro_gripper_description']
+    packages = [
+        "tiago_pro_description",
+        "pal_sea_arm_description",
+        "omni_base_description",
+        "pal_pro_gripper_description",
+    ]
 
     model_path = get_model_paths(packages)
     resource_path = get_resource_paths(packages)
@@ -116,8 +123,7 @@ def generate_launch_description():
     # Create the launch description and populate
     ld = LaunchDescription()
 
-    ld.add_action(SetEnvironmentVariable(
-        "GAZEBO_MODEL_PATH", model_path))
+    ld.add_action(SetEnvironmentVariable("GAZEBO_MODEL_PATH", model_path))
 
     ld.add_action(world_name_arg)
     ld.add_action(gazebo)
