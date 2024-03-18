@@ -1,4 +1,4 @@
-# Copyright (c) 2022 PAL Robotics S.L. All rights reserved.
+# Copyright (c) 2023 PAL Robotics S.L. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,36 +13,38 @@
 # limitations under the License.
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
-from launch.substitutions import LaunchConfiguration
 
 from launch_ros.actions import Node
+from dataclasses import dataclass
+from launch_pal.arg_utils import LaunchArgumentsBase
+
+
+@dataclass(frozen=True)
+class LaunchArguments(LaunchArgumentsBase):
+    pass
 
 
 def generate_launch_description():
 
-    model_name = DeclareLaunchArgument(
-        "model_name", default_value="tiago_pro", description="Gazebo model name"
-    )
-
-    tiago_pro_entity = Node(
-        package="gazebo_ros",
-        executable="spawn_entity.py",
-        arguments=[
-            "-topic",
-            "robot_description",
-            "-entity",
-            LaunchConfiguration("model_name"),
-            # LaunchConfiguration('gzpose'),
-        ],
-        output="screen",
-    )
-
-    # Create the launch description and populate
+    # Create the launch description
     ld = LaunchDescription()
+    launch_arguments = LaunchArguments()
 
-    # ld.add_action(gz_pose)
-    ld.add_action(model_name)
-    ld.add_action(tiago_pro_entity)
+    launch_arguments.add_to_launch_description(ld)
+
+    declare_actions(ld, launch_arguments)
 
     return ld
+
+
+def declare_actions(launch_description: LaunchDescription, launch_args: LaunchArguments):
+
+    robot_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
+                        arguments=['-topic', 'robot_description',
+                                   '-entity', 'tiago-pro',
+                                   #    "-x", "0.0", "-y", "0.0", "-z", "0.08",
+                                   ],
+                        output='screen')
+    launch_description.add_action(robot_entity)
+
+    return
