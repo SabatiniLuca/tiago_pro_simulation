@@ -47,7 +47,7 @@ class LaunchArguments(LaunchArgumentsBase):
     navigation: DeclareLaunchArgument = CommonArgs.navigation
     moveit: DeclareLaunchArgument = CommonArgs.moveit
     world_name: DeclareLaunchArgument = CommonArgs.world_name
-    public_sim: DeclareLaunchArgument = CommonArgs.public_sim
+    is_public_sim: DeclareLaunchArgument = CommonArgs.is_public_sim
 
 
 def declare_actions(launch_description: LaunchDescription, launch_args: LaunchArguments):
@@ -80,7 +80,7 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
         paths=['launch', 'tiago_pro_sim_nav_bringup.launch.py'],
         launch_arguments={
             "robot_name":  robot_name,
-            "is_public_sim": launch_args.public_sim,
+            "is_public_sim": launch_args.is_public_sim,
             "laser":  launch_args.laser_model},
         condition=IfCondition(LaunchConfiguration('navigation')))
 
