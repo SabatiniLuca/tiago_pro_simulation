@@ -39,12 +39,12 @@ def generate_launch_description():
 
 def declare_actions(launch_description: LaunchDescription, launch_args: LaunchArguments):
 
-    robot_entity = Node(package='gazebo_ros', executable='spawn_entity.py',
-                        arguments=['-topic', 'robot_description',
-                                   '-entity', 'tiago-pro',
+    robot_entity = Node(package="gazebo_ros", executable="spawn_entity.py",
+                        arguments=["-topic", "robot_description",
+                                   "-entity", "tiago-pro",
                                    #    "-x", "0.0", "-y", "0.0", "-z", "0.08",
                                    ],
-                        output='screen')
+                        output="screen")
     launch_description.add_action(robot_entity)
 
     return

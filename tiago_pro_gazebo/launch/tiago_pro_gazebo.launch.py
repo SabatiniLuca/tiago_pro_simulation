@@ -51,21 +51,21 @@ class LaunchArguments(LaunchArgumentsBase):
 
 
 def declare_actions(launch_description: LaunchDescription, launch_args: LaunchArguments):
-    set_sim_time = SetLaunchConfiguration('use_sim_time', 'True')
+    set_sim_time = SetLaunchConfiguration("use_sim_time", "True")
     launch_description.add_action(set_sim_time)
 
-    robot_name = 'tiago_pro'
-    packages = ['tiago_pro_description', 'pal_sea_arm_description',
-                'omni_base_description', 'pal_pro_gripper_description']
+    robot_name = "tiago_pro"
+    packages = ["tiago_pro_description", "pal_sea_arm_description",
+                "omni_base_description", "pal_pro_gripper_description"]
 
     model_path = get_model_paths(packages)
 
     gazebo_model_path_env_var = SetEnvironmentVariable(
-        'GAZEBO_MODEL_PATH', model_path)
+        "GAZEBO_MODEL_PATH", model_path)
 
     gazebo = include_scoped_launch_py_description(
-        pkg_name='pal_gazebo_worlds',
-        paths=['launch', 'pal_gazebo.launch.py'],
+        pkg_name="pal_gazebo_worlds",
+        paths=["launch", "pal_gazebo.launch.py"],
         env_vars=[gazebo_model_path_env_var],
         launch_arguments={
             "world_name":  launch_args.world_name,
@@ -76,36 +76,36 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
     launch_description.add_action(gazebo)
 
     navigation = include_scoped_launch_py_description(
-        pkg_name='tiago_pro_2dnav',
-        paths=['launch', 'tiago_pro_sim_nav_bringup.launch.py'],
+        pkg_name="tiago_pro_2dnav",
+        paths=["launch", "tiago_pro_sim_nav_bringup.launch.py"],
         launch_arguments={
             "robot_name":  robot_name,
             "is_public_sim": launch_args.is_public_sim,
             "laser":  launch_args.laser_model},
-        condition=IfCondition(LaunchConfiguration('navigation')))
+        condition=IfCondition(LaunchConfiguration("navigation")))
 
     launch_description.add_action(navigation)
 
     move_group = include_scoped_launch_py_description(
-        pkg_name='tiago_pro_moveit_config',
-        paths=['launch', 'move_group.launch.py'],
+        pkg_name="tiago_pro_moveit_config",
+        paths=["launch", "move_group.launch.py"],
         launch_arguments={
             "robot_name": robot_name,
-            "use_sim_time": LaunchConfiguration('use_sim_time')},
-        condition=IfCondition(LaunchConfiguration('moveit')))
+            "use_sim_time": LaunchConfiguration("use_sim_time")},
+        condition=IfCondition(LaunchConfiguration("moveit")))
 
     launch_description.add_action(move_group)
 
     robot_spawn = include_scoped_launch_py_description(
-        pkg_name='tiago_pro_gazebo',
-        paths=['launch', 'robot_spawn.launch.py'])
+        pkg_name="tiago_pro_gazebo",
+        paths=["launch", "robot_spawn.launch.py"])
 
     launch_description.add_action(robot_spawn)
 
     tiago_bringup = include_scoped_launch_py_description(
-        pkg_name='tiago_pro_bringup', paths=['launch', 'tiago_pro_bringup.launch.py'],
+        pkg_name="tiago_pro_bringup", paths=["launch", "tiago_pro_bringup.launch.py"],
         launch_arguments={
-            'use_sim_time': LaunchConfiguration('use_sim_time'),
+            "use_sim_time": LaunchConfiguration("use_sim_time"),
             "arm_type_right": launch_args.arm_type_right,
             "arm_type_left": launch_args.arm_type_left,
             "end_effector_right": launch_args.end_effector_right,
@@ -125,33 +125,33 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
 
 
 def get_model_paths(packages_names):
-    model_paths = ''
+    model_paths = ""
     for package_name in packages_names:
-        if model_paths != '':
+        if model_paths != "":
             model_paths += pathsep
 
         package_path = get_package_prefix(package_name)
-        model_path = os.path.join(package_path, 'share')
+        model_path = os.path.join(package_path, "share")
 
         model_paths += model_path
 
-    if 'GAZEBO_MODEL_PATH' in environ:
-        model_paths += pathsep + environ['GAZEBO_MODEL_PATH']
+    if "GAZEBO_MODEL_PATH" in environ:
+        model_paths += pathsep + environ["GAZEBO_MODEL_PATH"]
 
     return model_paths
 
 
 def get_resource_paths(packages_names):
-    resource_paths = ''
+    resource_paths = ""
     for package_name in packages_names:
-        if resource_paths != '':
+        if resource_paths != "":
             resource_paths += pathsep
 
         package_path = get_package_prefix(package_name)
         resource_paths += package_path
 
-    if 'GAZEBO_RESOURCE_PATH' in environ:
-        resource_paths += pathsep + environ['GAZEBO_RESOURCE_PATH']
+    if "GAZEBO_RESOURCE_PATH" in environ:
+        resource_paths += pathsep + environ["GAZEBO_RESOURCE_PATH"]
 
     return resource_paths
 
