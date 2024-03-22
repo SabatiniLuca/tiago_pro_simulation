@@ -2,6 +2,27 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'dtk/fix/restructure' into 'humble-devel'
+  restructure launch files
+  See merge request robots/tiago_pro_simulation!10
+* Change to double quotes
+* Update copyright year
+* Change common param to is_public_sim
+* restructure launch files
+* Merge branch 'dtk/fix/add-linter-tests' into 'humble-devel'
+  Dtk/fix/add linter tests
+  See merge request robots/tiago_pro_simulation!9
+* Fix linter formatting issues
+* Add tests packages to package.xml
+* Add linter testing
+* Merge branch 'feat/launch_moveit_by_default' into 'humble-devel'
+  Launch MoveIt 2 by default
+  See merge request robots/tiago_pro_simulation!8
+* Launch MoveIt 2 by default
+* Contributors: David ter Kuile, Jordan Palacios, Noel Jimenez, davidterkuile
+
 1.0.0 (2024-01-30)
 ------------------
 * Merge branch 'ros2-migration' into 'humble-devel'
