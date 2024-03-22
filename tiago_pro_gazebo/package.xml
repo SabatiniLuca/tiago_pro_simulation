@@ -19,6 +19,7 @@
   <exec_depend>pal_pro_gripper_description</exec_depend>
   <exec_depend>omni_base_description</exec_depend>
   <exec_depend>tiago_pro_description</exec_depend>
+  <exec_depend>tiago_pro_moveit_config</exec_depend>
   <exec_depend>gazebo_ros2_control</exec_depend>
   <exec_depend>gazebo_ros</exec_depend>
 
