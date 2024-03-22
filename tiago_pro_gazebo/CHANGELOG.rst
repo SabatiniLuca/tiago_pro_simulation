@@ -2,6 +2,14 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'dtk/fix/add-movit-config' into 'humble-devel'
+  Add dependency tiago-pro-moveit-config
+  See merge request robots/tiago_pro_simulation!12
+* Add dependency tiago-pro-moveit-config
+* Contributors: Noel Jimenez, davidterkuile
+
 1.0.1 (2024-03-22)
 ------------------
 * Merge branch 'dtk/fix/restructure' into 'humble-devel'
