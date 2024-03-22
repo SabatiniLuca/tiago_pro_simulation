@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.1 (2024-03-22)
+------------------
 * Merge branch 'dtk/fix/restructure' into 'humble-devel'
   restructure launch files
   See merge request robots/tiago_pro_simulation!10
