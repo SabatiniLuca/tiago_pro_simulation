@@ -44,6 +44,8 @@ class LaunchArguments(LaunchArgumentsBase):
     camera_model: DeclareLaunchArgument = TiagoProArgs.camera_model
     laser_model: DeclareLaunchArgument = TiagoProArgs.laser_model
 
+    slam: DeclareLaunchArgument = DeclareLaunchArgument(
+        "slam", default_value="False", description="Specify if launching SLAM Toolbox")
     navigation: DeclareLaunchArgument = CommonArgs.navigation
     moveit: DeclareLaunchArgument = CommonArgs.moveit
     world_name: DeclareLaunchArgument = CommonArgs.world_name
@@ -75,13 +77,23 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
 
     launch_description.add_action(gazebo)
 
+    laser_pipeline = include_scoped_launch_py_description(
+        pkg_name="pal_nav2_bringup",
+        paths=["launch", "nav_bringup.launch.py"],
+        launch_arguments={
+            "params_file": "laser_pipeline_sim.yaml",
+            "params_pkg": "tiago_pro_laser_sensors",
+            "robot_name": robot_name,
+            "rviz": "false",
+        })
+    launch_description.add_action(laser_pipeline)
+
     navigation = include_scoped_launch_py_description(
         pkg_name="tiago_pro_2dnav",
-        paths=["launch", "tiago_pro_sim_nav_bringup.launch.py"],
+        paths=["launch", "tiago_pro_nav_bringup.launch.py"],
         launch_arguments={
-            "robot_name":  robot_name,
-            "is_public_sim": launch_args.is_public_sim,
-            "laser":  launch_args.laser_model},
+            "slam": launch_args.slam
+        },
         condition=IfCondition(LaunchConfiguration("navigation")))
 
     launch_description.add_action(navigation)
