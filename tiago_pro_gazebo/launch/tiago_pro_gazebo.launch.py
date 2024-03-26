@@ -82,7 +82,7 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
         launch_arguments={
             "params_file": "laser_pipeline_sim.yaml",
             "params_pkg": "tiago_pro_laser_sensors",
-            "robot_name": "tiago_pro",
+            "robot_name": robot_name,
             "rviz": "false",
         })
     launch_description.add_action(laser_pipeline)
