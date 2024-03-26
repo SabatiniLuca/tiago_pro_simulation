@@ -2,6 +2,16 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'feat/ros2-navigation' into 'humble-devel'
+  Feat/ros2 navigation
+  See merge request robots/tiago_pro_simulation!13
+* linters
+* using robot_name
+* private simulation for navigation and mapping
+* Contributors: andreacapodacqua
+
 1.0.2 (2024-03-22)
 ------------------
 * Merge branch 'dtk/fix/add-movit-config' into 'humble-devel'
