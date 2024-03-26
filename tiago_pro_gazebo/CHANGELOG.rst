@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.3 (2024-03-26)
+------------------
 * Merge branch 'feat/ros2-navigation' into 'humble-devel'
   Feat/ros2 navigation
   See merge request robots/tiago_pro_simulation!13
