@@ -43,8 +43,9 @@ class LaunchArguments(LaunchArgumentsBase):
     wrist_model_left: DeclareLaunchArgument = TiagoProArgs.wrist_model_left
     camera_model: DeclareLaunchArgument = TiagoProArgs.camera_model
     laser_model: DeclareLaunchArgument = TiagoProArgs.laser_model
- 
-    slam: DeclareLaunchArgument = DeclareLaunchArgument("slam", default_value="False", description="Specify if launching SLAM Toolbox")
+
+    slam: DeclareLaunchArgument = DeclareLaunchArgument(
+        "slam", default_value="False", description="Specify if launching SLAM Toolbox")
     navigation: DeclareLaunchArgument = CommonArgs.navigation
     moveit: DeclareLaunchArgument = CommonArgs.moveit
     world_name: DeclareLaunchArgument = CommonArgs.world_name
@@ -86,7 +87,7 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
             "rviz": "false",
         })
     launch_description.add_action(laser_pipeline)
-    
+
     navigation = include_scoped_launch_py_description(
         pkg_name="tiago_pro_2dnav",
         paths=["launch", "tiago_pro_nav_bringup.launch.py"],
