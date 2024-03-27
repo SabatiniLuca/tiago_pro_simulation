@@ -2,6 +2,14 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'dtk/fix/missing-nav-dependency' into 'humble-devel'
+  Add missing 2dnav dependency
+  See merge request robots/tiago_pro_simulation!14
+* Add missing 2dnav dependency
+* Contributors: davidterkuile
+
 1.0.3 (2024-03-26)
 ------------------
 * Merge branch 'feat/ros2-navigation' into 'humble-devel'
