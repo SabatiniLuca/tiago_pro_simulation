@@ -84,17 +84,6 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
 
     launch_description.add_action(gazebo)
 
-    laser_pipeline = include_scoped_launch_py_description(
-        pkg_name="pal_nav2_bringup",
-        paths=["launch", "nav_bringup.launch.py"],
-        launch_arguments={
-            "params_file": "laser_pipeline_sim.yaml",
-            "params_pkg": "tiago_pro_laser_sensors",
-            "robot_name": robot_name,
-            "rviz": "false",
-        })
-    launch_description.add_action(laser_pipeline)
-
     navigation = include_scoped_launch_py_description(
         pkg_name="tiago_pro_2dnav",
         paths=["launch", "tiago_pro_nav_bringup.launch.py"],
