@@ -24,6 +24,7 @@ from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration
 
 from launch_pal.include_utils import include_scoped_launch_py_description
+from launch_pal.actions import CheckPublicSim
 
 from launch_pal.arg_utils import LaunchArgumentsBase, CommonArgs
 from launch_pal.robot_arguments import TiagoProArgs
@@ -53,8 +54,14 @@ class LaunchArguments(LaunchArgumentsBase):
 
 
 def declare_actions(launch_description: LaunchDescription, launch_args: LaunchArguments):
+
+    # Set use_sim_time to True
     set_sim_time = SetLaunchConfiguration("use_sim_time", "True")
     launch_description.add_action(set_sim_time)
+
+    # Shows error if is_public_sim is not set to True when using public simulation
+    public_sim_check = CheckPublicSim()
+    launch_description.add_action(public_sim_check)
 
     robot_name = "tiago_pro"
     packages = ["tiago_pro_description", "pal_sea_arm_description",
