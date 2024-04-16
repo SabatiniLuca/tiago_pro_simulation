@@ -29,6 +29,7 @@ from launch_pal.actions import CheckPublicSim
 from launch_pal.arg_utils import LaunchArgumentsBase, CommonArgs
 from launch_pal.robot_arguments import TiagoProArgs
 from dataclasses import dataclass
+from launch_ros.actions import Node
 
 
 @dataclass(frozen=True)
@@ -128,6 +129,15 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
     )
 
     launch_description.add_action(tiago_bringup)
+
+    tuck_arm = Node(
+        package="tiago_pro_gazebo",
+        executable="tuck_arm.py",
+        emulate_tty=True,
+        output="both",
+    )
+
+    launch_description.add_action(tuck_arm)
 
     return
 
