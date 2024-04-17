@@ -89,7 +89,8 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
         pkg_name="tiago_pro_2dnav",
         paths=["launch", "tiago_pro_nav_bringup.launch.py"],
         launch_arguments={
-            "slam": launch_args.slam
+            "slam": launch_args.slam,
+            "is_public_sim": LaunchConfiguration("is_public_sim")
         },
         condition=IfCondition(LaunchConfiguration("navigation")))
 
@@ -125,7 +126,8 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
             "wrist_model_left": launch_args.wrist_model_left,
             "laser_model": launch_args.laser_model,
             "camera_model": launch_args.camera_model,
-            "base_type": launch_args.base_type}
+            "base_type": launch_args.base_type,
+            "is_public_sim": launch_args.is_public_sim}
     )
 
     launch_description.add_action(tiago_bringup)
