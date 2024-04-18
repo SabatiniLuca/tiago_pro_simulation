@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.5 (2024-04-18)
+------------------
 * Merge branch 'omm/feat/public_sim_check' into 'humble-devel'
   is_public_sim launch support
   See merge request robots/tiago_pro_simulation!18
