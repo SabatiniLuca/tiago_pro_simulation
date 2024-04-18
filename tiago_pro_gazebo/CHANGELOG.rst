@@ -2,6 +2,26 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'omm/feat/public_sim_check' into 'humble-devel'
+  is_public_sim launch support
+  See merge request robots/tiago_pro_simulation!18
+* is_public_sim launch support
+* Merge branch 'omm/feat/tuck_arm' into 'humble-devel'
+  Added tuck arm script
+  See merge request robots/tiago_pro_simulation!17
+* Added tuck arm script
+* Merge branch 'fix/renamed-params' into 'humble-devel'
+  removed laser pipeline
+  See merge request robots/tiago_pro_simulation!16
+* removed laser pipeline
+* Merge branch 'dtk/feat/public_sim_check' into 'humble-devel'
+  Show error when public sim is used without the is_public_sim arg set to true
+  See merge request robots/tiago_pro_simulation!15
+* Show error when public sim is used without the is_public_sim arg set to true
+* Contributors: David ter Kuile, Oscar, andreacapodacqua, davidterkuile
+
 1.0.4 (2024-03-27)
 ------------------
 * Merge branch 'dtk/fix/missing-nav-dependency' into 'humble-devel'
