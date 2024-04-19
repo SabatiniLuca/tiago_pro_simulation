@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.6 (2024-04-19)
+------------------
 * Merge branch 'omm/fix/missing_bringup_dep' into 'humble-devel'
   Added missing bringup dep
   See merge request robots/tiago_pro_simulation!19
