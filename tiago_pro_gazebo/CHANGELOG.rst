@@ -2,6 +2,18 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'dtk/move-robot-args' into 'humble-devel'
+  Change import for launch args
+  See merge request robots/tiago_pro_simulation!21
+* Change import for launch args
+* Merge branch 'feat/auto-generated_srdf_files' into 'humble-devel'
+  add arguments for moveit launch file
+  See merge request robots/tiago_pro_simulation!20
+* add arguments for moveit launch file
+* Contributors: Aina Irisarri, David ter Kuile, davidterkuile
+
 1.0.6 (2024-04-19)
 ------------------
 * Merge branch 'omm/fix/missing_bringup_dep' into 'humble-devel'
