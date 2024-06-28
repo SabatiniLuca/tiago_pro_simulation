@@ -50,6 +50,7 @@ class LaunchArguments(LaunchArgumentsBase):
     slam: DeclareLaunchArgument = DeclareLaunchArgument(
         "slam", default_value="False", description="Specify if launching SLAM Toolbox")
     navigation: DeclareLaunchArgument = CommonArgs.navigation
+    advanced_navigation: DeclareLaunchArgument = CommonArgs.advanced_navigation
     moveit: DeclareLaunchArgument = CommonArgs.moveit
     world_name: DeclareLaunchArgument = CommonArgs.world_name
     is_public_sim: DeclareLaunchArgument = CommonArgs.is_public_sim
@@ -96,6 +97,13 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
         condition=IfCondition(LaunchConfiguration("navigation")))
 
     launch_description.add_action(navigation)
+
+    advanced_navigation = include_scoped_launch_py_description(
+        pkg_name='tiago_pro_advanced_2dnav',
+        paths=['launch', 'tiago_pro_advanced_nav_bringup.launch.py'],
+        condition=IfCondition(LaunchConfiguration('advanced_navigation')))
+
+    launch_description.add_action(advanced_navigation)
 
     move_group = include_scoped_launch_py_description(
         pkg_name="tiago_pro_moveit_config",
