@@ -47,10 +47,9 @@ class LaunchArguments(LaunchArgumentsBase):
     camera_model: DeclareLaunchArgument = TiagoProArgs.camera_model
     laser_model: DeclareLaunchArgument = TiagoProArgs.laser_model
 
-    slam: DeclareLaunchArgument = DeclareLaunchArgument(
-        "slam", default_value="False", description="Specify if launching SLAM Toolbox")
     navigation: DeclareLaunchArgument = CommonArgs.navigation
     advanced_navigation: DeclareLaunchArgument = CommonArgs.advanced_navigation
+    slam: DeclareLaunchArgument = CommonArgs.slam
     moveit: DeclareLaunchArgument = CommonArgs.moveit
     world_name: DeclareLaunchArgument = CommonArgs.world_name
     is_public_sim: DeclareLaunchArgument = CommonArgs.is_public_sim
