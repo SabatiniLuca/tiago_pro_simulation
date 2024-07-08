@@ -47,10 +47,9 @@ class LaunchArguments(LaunchArgumentsBase):
     camera_model: DeclareLaunchArgument = TiagoProArgs.camera_model
     laser_model: DeclareLaunchArgument = TiagoProArgs.laser_model
 
-    slam: DeclareLaunchArgument = DeclareLaunchArgument(
-        "slam", default_value="False", description="Specify if launching SLAM Toolbox")
     navigation: DeclareLaunchArgument = CommonArgs.navigation
     advanced_navigation: DeclareLaunchArgument = CommonArgs.advanced_navigation
+    slam: DeclareLaunchArgument = CommonArgs.slam
     moveit: DeclareLaunchArgument = CommonArgs.moveit
     world_name: DeclareLaunchArgument = CommonArgs.world_name
     is_public_sim: DeclareLaunchArgument = CommonArgs.is_public_sim
@@ -91,8 +90,12 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
         pkg_name="tiago_pro_2dnav",
         paths=["launch", "tiago_pro_nav_bringup.launch.py"],
         launch_arguments={
-            "slam": launch_args.slam,
-            "is_public_sim": LaunchConfiguration("is_public_sim")
+            'robot_name':  robot_name,
+            'laser':  launch_args.laser_model,
+            'is_public_sim': launch_args.is_public_sim,
+            'use_sim_time': LaunchConfiguration('use_sim_time'),
+            'world_name': launch_args.world_name,
+            'slam': launch_args.slam,
         },
         condition=IfCondition(LaunchConfiguration("navigation")))
 
