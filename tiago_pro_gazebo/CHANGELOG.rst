@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.0.8 (2024-07-08)
+------------------
 * Merge branch 'fix/use_common_slam_arg' into 'humble-devel'
   Use slam from CommonArgs
   See merge request robots/tiago_pro_simulation!23
