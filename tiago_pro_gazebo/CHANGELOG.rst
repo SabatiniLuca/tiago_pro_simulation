@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* added tuck arm argument
+* Contributors: sergiacosta
+
 1.0.8 (2024-07-08)
 ------------------
 * Merge branch 'fix/use_common_slam_arg' into 'humble-devel'
