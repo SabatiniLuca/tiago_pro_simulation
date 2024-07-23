@@ -52,6 +52,7 @@ class LaunchArguments(LaunchArgumentsBase):
     slam: DeclareLaunchArgument = CommonArgs.slam
     moveit: DeclareLaunchArgument = CommonArgs.moveit
     world_name: DeclareLaunchArgument = CommonArgs.world_name
+    tuck_arm: DeclareLaunchArgument = CommonArgs.tuck_arm
     is_public_sim: DeclareLaunchArgument = CommonArgs.is_public_sim
 
 
@@ -157,6 +158,7 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
         executable="tuck_arm.py",
         emulate_tty=True,
         output="both",
+        condition=IfCondition(LaunchConfiguration('tuck_arm'))
     )
 
     launch_description.add_action(tuck_arm)
