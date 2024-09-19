@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Added tool changer args
+* Contributors: oscarmartinez
+
 1.0.9 (2024-07-23)
 ------------------
 * added tuck arm argument
