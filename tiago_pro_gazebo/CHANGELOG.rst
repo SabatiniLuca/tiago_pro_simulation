@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.2.0 (2024-10-16)
+------------------
 * Merge branch 'man/feat/advanced-nav' into 'humble-devel'
   added advanced nav to navigation
   See merge request robots/tiago_pro_simulation!28
