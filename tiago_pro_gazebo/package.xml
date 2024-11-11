@@ -17,6 +17,7 @@
   <exec_depend>tiago_pro_bringup</exec_depend>
   <exec_depend>tiago_pro_controller_configuration</exec_depend>
   <exec_depend>pal_pro_gripper_description</exec_depend>
+  <exec_depend>tiago_pro_head_description</exec_depend>
   <exec_depend>omni_base_description</exec_depend>
   <exec_depend>tiago_pro_description</exec_depend>
   <exec_depend>tiago_pro_moveit_config</exec_depend>

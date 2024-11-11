@@ -46,10 +46,9 @@ class LaunchArguments(LaunchArgumentsBase):
     tool_changer_left: DeclareLaunchArgument = TiagoProArgs.tool_changer_left
     wrist_model_right: DeclareLaunchArgument = TiagoProArgs.wrist_model_right
     wrist_model_left: DeclareLaunchArgument = TiagoProArgs.wrist_model_left
-    camera_model: DeclareLaunchArgument = TiagoProArgs.camera_model
+    # camera_model: DeclareLaunchArgument = TiagoProArgs.camera_model
     laser_model: DeclareLaunchArgument = TiagoProArgs.laser_model
     has_laptop_tray: DeclareLaunchArgument = TiagoProArgs.has_laptop_tray
-
     navigation: DeclareLaunchArgument = CommonArgs.navigation
     advanced_navigation: DeclareLaunchArgument = CommonArgs.advanced_navigation
     slam: DeclareLaunchArgument = CommonArgs.slam
@@ -72,7 +71,8 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
 
     robot_name = "tiago_pro"
     packages = ["tiago_pro_description", "pal_sea_arm_description",
-                "omni_base_description", "pal_pro_gripper_description"]
+                "omni_base_description", "pal_pro_gripper_description",
+                "tiago_pro_head_description"]
 
     model_path = get_model_paths(packages)
 
@@ -171,7 +171,6 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
             "wrist_model_right": launch_args.wrist_model_right,
             "wrist_model_left": launch_args.wrist_model_left,
             "laser_model": launch_args.laser_model,
-            "camera_model": launch_args.camera_model,
             "base_type": launch_args.base_type,
             "has_laptop_tray": launch_args.has_laptop_tray,
             "is_public_sim": launch_args.is_public_sim}
