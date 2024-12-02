@@ -2,6 +2,19 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'abr/feat/deps-and-specs' into 'humble-devel'
+  nav deps and specifics
+  See merge request robots/tiago_pro_simulation!31
+* always start docking with adv navigation
+* nav deps and specifics
+* Merge branch 'omm/removable_tray' into 'humble-devel'
+  Added arguments for supporting the removable tray
+  See merge request robots/tiago_pro_simulation!26
+* Added arguments for supporting the removable tray
+* Contributors: antoniobrandi, davidterkuile, oscarmartinez
+
 1.2.0 (2024-10-16)
 ------------------
 * Merge branch 'man/feat/advanced-nav' into 'humble-devel'
