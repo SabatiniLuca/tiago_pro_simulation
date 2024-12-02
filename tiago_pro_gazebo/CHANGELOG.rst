@@ -2,6 +2,14 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Remove unnecesary controller_configuration dependency
+* Add space to add distinction between robot info and other params as it already was
+* Add again camera arg
+* Update packages for gz and remove camera model as argument
+* Contributors: Aina
+
 1.3.0 (2024-12-02)
 ------------------
 * Merge branch 'abr/feat/deps-and-specs' into 'humble-devel'
