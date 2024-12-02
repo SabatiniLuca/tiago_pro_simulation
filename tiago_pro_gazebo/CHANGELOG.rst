@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.3.0 (2024-12-02)
+------------------
 * Merge branch 'abr/feat/deps-and-specs' into 'humble-devel'
   nav deps and specifics
   See merge request robots/tiago_pro_simulation!31
