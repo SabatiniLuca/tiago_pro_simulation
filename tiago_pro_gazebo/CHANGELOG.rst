@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.4.0 (2024-12-02)
+------------------
 * Remove unnecesary controller_configuration dependency
 * Add space to add distinction between robot info and other params as it already was
 * Add again camera arg
