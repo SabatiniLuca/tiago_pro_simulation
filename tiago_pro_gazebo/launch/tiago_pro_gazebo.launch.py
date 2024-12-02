@@ -21,7 +21,7 @@ from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable, SetLaunchConfiguration
 
 from launch.conditions import IfCondition
-from launch.substitutions import LaunchConfiguration
+from launch.substitutions import LaunchConfiguration, PythonExpression
 
 from launch_pal.include_utils import include_scoped_launch_py_description
 from launch_pal.actions import CheckPublicSim
@@ -117,7 +117,18 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
     docking = include_scoped_launch_py_description(
         pkg_name='tiago_pro_docking',
         paths=['launch', 'tiago_pro_docking_bringup.launch.py'],
-        condition=IfCondition(LaunchConfiguration('docking')))
+        condition=IfCondition(
+            PythonExpression(
+                [
+                    "'",
+                    LaunchConfiguration('docking'),
+                    "' == 'True' or '",
+                    LaunchConfiguration('advanced_navigation'),
+                    "' == 'True'"
+                ]
+            )
+        )
+    )
 
     launch_description.add_action(docking)
 
