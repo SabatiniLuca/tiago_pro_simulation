@@ -2,6 +2,14 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'tpe/simplify-3d-model' into 'humble-devel'
+  remove laptop tray option
+  See merge request robots/tiago_pro_simulation!32
+* remove laptop tray option
+* Contributors: thomas.peyrucain, thomaspeyrucain
+
 1.4.0 (2024-12-02)
 ------------------
 * Remove unnecesary controller_configuration dependency
