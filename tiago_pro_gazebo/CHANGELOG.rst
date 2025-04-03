@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Adopt pal configuration
+* Contributors: antoniobrandi
+
 1.5.0 (2025-01-16)
 ------------------
 * Merge branch 'tpe/simplify-3d-model' into 'humble-devel'
