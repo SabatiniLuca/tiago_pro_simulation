@@ -14,19 +14,28 @@
 
 
 import os
+import yaml
 from os import environ, pathsep
-from ament_index_python.packages import get_package_prefix
+from ament_index_python.packages import get_package_prefix, get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, SetEnvironmentVariable, SetLaunchConfiguration
+from launch.actions import (
+    DeclareLaunchArgument,
+    SetEnvironmentVariable,
+    SetLaunchConfiguration,
+    GroupAction,
+    OpaqueFunction,
+)
+from launch.conditions import IfCondition, UnlessCondition
+from launch.substitutions import LaunchConfiguration
 
-from launch.conditions import IfCondition
-from launch.substitutions import LaunchConfiguration, PythonExpression
-
-from launch_pal.include_utils import include_scoped_launch_py_description
+from launch_pal.include_utils import (
+    include_scoped_launch_py_description,
+    include_launch_py_description,
+)
 from launch_pal.actions import CheckPublicSim
 
-from launch_pal.arg_utils import LaunchArgumentsBase
+from launch_pal.arg_utils import LaunchArgumentsBase, read_launch_argument
 from launch_pal.robot_arguments import CommonArgs
 from tiago_pro_description.launch_arguments import TiagoProArgs
 from dataclasses import dataclass
@@ -57,6 +66,126 @@ class LaunchArguments(LaunchArgumentsBase):
     world_name: DeclareLaunchArgument = CommonArgs.world_name
     tuck_arm: DeclareLaunchArgument = CommonArgs.tuck_arm
     is_public_sim: DeclareLaunchArgument = CommonArgs.is_public_sim
+
+
+def private_navigation(context, *args, **kwargs):
+    actions = []
+    base_type = read_launch_argument('base_type', context)
+    camera_model = read_launch_argument('camera_model', context)
+    docking = read_launch_argument('docking', context)
+    advanced_navigation = read_launch_argument('advanced_navigation', context)
+    rviz_cfg_pkg = base_type + '_2dnav'
+    if advanced_navigation == 'True':
+        rviz_cfg_pkg = base_type + '_advanced_2dnav'
+
+    robot_info_path = robot_info = os.path.join(
+        get_package_share_directory('tiago_pro_gazebo'),
+        'config',
+    )
+    robot_info = os.path.join(robot_info_path, '99_robot_info.yaml')
+    with open(robot_info, 'r') as robot_info_file:
+        cur_yaml = yaml.safe_load(robot_info_file)
+
+    params = cur_yaml.get('robot_info_publisher', {}).get('ros__parameters', {})
+    new_values = {
+        'advanced_navigation': (advanced_navigation == 'True'),
+        'has_dock': (docking == 'True'),
+        'base_type': base_type,
+        'camera_model': camera_model,
+    }
+    params.update(new_values)
+
+    with open(robot_info, 'w') as robot_info_file:
+        yaml.safe_dump(cur_yaml, robot_info_file)
+
+    # Robot Info Publisher
+    robot_info_env = SetEnvironmentVariable(
+        name='ROBOT_INFO_PATH',
+        value=robot_info_path,
+    )
+    actions.append(robot_info_env)
+
+    robot_info_publisher = Node(
+        package='robot_info_publisher',
+        executable='robot_info_publisher',
+        name='robot_info_publisher',
+        output='screen',
+    )
+    actions.append(robot_info_publisher)
+
+    # Laser Sensors
+    laser_bringup_launch = include_launch_py_description(
+        pkg_name=base_type + '_laser_sensors',
+        paths=['launch', 'laser_sim.launch.py'],
+    )
+    actions.append(laser_bringup_launch)
+
+    # Navigation
+    nav_bringup_launch = include_launch_py_description(
+        pkg_name=base_type + '_2dnav',
+        paths=['launch', 'navigation.launch.py'],
+    )
+    actions.append(nav_bringup_launch)
+
+    # Localization
+    loc_bringup_launch = include_launch_py_description(
+        pkg_name=base_type + '_2dnav',
+        paths=['launch', 'localization.launch.py'],
+        condition=UnlessCondition(LaunchConfiguration('slam'))
+    )
+    actions.append(loc_bringup_launch)
+
+    # SLAM
+    slam_bringup_launch = include_launch_py_description(
+        pkg_name=base_type + '_2dnav',
+        paths=['launch', 'slam.launch.py'],
+        launch_arguments={'use_sim_time': LaunchConfiguration('use_sim_time')},
+        condition=IfCondition(LaunchConfiguration('slam'))
+    )
+    actions.append(slam_bringup_launch)
+
+    # Docking
+    docking_bringup_launch = include_launch_py_description(
+        pkg_name=base_type + '_docking',
+        paths=['launch', 'docking_sim.launch.py'],
+        condition=IfCondition(LaunchConfiguration('docking'))
+    )
+    actions.append(docking_bringup_launch)
+
+    # Stores Server
+    db_bringup_launch = Node(
+        package='pal_stores_server',
+        executable='pal_stores_server',
+        arguments=[os.path.join(
+            os.environ['HOME'], '.pal', 'stores.db'
+        )],
+        output='screen',
+        condition=IfCondition(LaunchConfiguration('advanced_navigation'))
+    )
+    actions.append(db_bringup_launch)
+
+    # Advanced Navigation
+    advanced_nav_bringup_launch = include_launch_py_description(
+        pkg_name=base_type + '_advanced_2dnav',
+        paths=['launch', 'advanced_navigation.launch.py'],
+        condition=IfCondition(LaunchConfiguration('advanced_navigation'))
+    )
+    actions.append(advanced_nav_bringup_launch)
+
+    # RViz
+    rviz_bringup_launch = Node(
+        package='rviz2',
+        executable='rviz2',
+        arguments=['-d', os.path.join(
+            get_package_share_directory(rviz_cfg_pkg),
+            'config',
+            'rviz',
+            'navigation.rviz',
+        )],
+        output='screen',
+    )
+    actions.append(rviz_bringup_launch)
+    return actions
 
 
 def declare_actions(launch_description: LaunchDescription, launch_args: LaunchArguments):
@@ -91,46 +220,17 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
 
     launch_description.add_action(gazebo)
 
-    navigation = include_scoped_launch_py_description(
-        pkg_name="tiago_pro_2dnav",
-        paths=["launch", "tiago_pro_nav_bringup.launch.py"],
-        launch_arguments={
-            'robot_name':  robot_name,
-            'laser':  launch_args.laser_model,
-            'is_public_sim': launch_args.is_public_sim,
-            'use_sim_time': LaunchConfiguration('use_sim_time'),
-            'world_name': launch_args.world_name,
-            'slam': launch_args.slam,
-            'advanced_navigation': launch_args.advanced_navigation
-        },
-        condition=IfCondition(LaunchConfiguration("navigation")))
-
-    launch_description.add_action(navigation)
-
-    advanced_navigation = include_scoped_launch_py_description(
-        pkg_name='tiago_pro_advanced_2dnav',
-        paths=['launch', 'tiago_pro_advanced_nav_bringup.launch.py'],
-        condition=IfCondition(LaunchConfiguration('advanced_navigation')))
-
-    launch_description.add_action(advanced_navigation)
-
-    docking = include_scoped_launch_py_description(
-        pkg_name='tiago_pro_docking',
-        paths=['launch', 'tiago_pro_docking_bringup.launch.py'],
-        condition=IfCondition(
-            PythonExpression(
-                [
-                    "'",
-                    LaunchConfiguration('docking'),
-                    "' == 'True' or '",
-                    LaunchConfiguration('advanced_navigation'),
-                    "' == 'True'"
-                ]
-            )
-        )
+    navigation = GroupAction(
+        condition=IfCondition(LaunchConfiguration('navigation')),
+        actions=[
+            # Private Navigation
+            OpaqueFunction(
+                function=private_navigation,
+                condition=UnlessCondition(LaunchConfiguration('is_public_sim'))
+            ),
+        ]
     )
-
-    launch_description.add_action(docking)
+    launch_description.add_action(navigation)
 
     move_group = include_scoped_launch_py_description(
         pkg_name="tiago_pro_moveit_config",
