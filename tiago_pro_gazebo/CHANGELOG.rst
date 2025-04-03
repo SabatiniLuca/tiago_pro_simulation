@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.7.0 (2025-04-03)
+------------------
 * store robot_info in tmp
 * Contributors: antoniobrandi
 
