@@ -2,6 +2,12 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add allegro dependency
+* Açdd allegro-hand as possible end-effector
+* Contributors: Aina
+
 1.7.0 (2025-04-03)
 ------------------
 * store robot_info in tmp
