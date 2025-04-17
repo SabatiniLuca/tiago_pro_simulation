@@ -200,7 +200,7 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
     robot_name = "tiago_pro"
     packages = ["tiago_pro_description", "pal_sea_arm_description",
                 "omni_base_description", "pal_pro_gripper_description",
-                "tiago_pro_head_description"]
+                "tiago_pro_head_description", "allegro_hand_description"]
 
     model_path = get_model_paths(packages)
 
