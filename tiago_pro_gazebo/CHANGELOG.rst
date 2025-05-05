@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* fix deps
+* Contributors: andreacapodacqua
+
 1.7.1 (2025-04-17)
 ------------------
 * Add allegro dependency
