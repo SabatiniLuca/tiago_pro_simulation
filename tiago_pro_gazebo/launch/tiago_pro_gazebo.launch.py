@@ -138,7 +138,6 @@ def private_navigation(context, *args, **kwargs):
     slam_bringup_launch = include_launch_py_description(
         pkg_name=base_type + '_2dnav',
         paths=['launch', 'slam.launch.py'],
-        launch_arguments={'use_sim_time': LaunchConfiguration('use_sim_time')},
         condition=IfCondition(LaunchConfiguration('slam'))
     )
     actions.append(slam_bringup_launch)
