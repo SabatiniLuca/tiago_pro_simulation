@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* rviz use_sim_time
+* Contributors: antoniobrandi
+
 1.7.2 (2025-05-05)
 ------------------
 * fix deps
