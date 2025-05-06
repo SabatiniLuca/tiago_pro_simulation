@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* fix slam launch_args
+* Contributors: antoniobrandi
+
 1.8.0 (2025-05-06)
 ------------------
 * rviz use_sim_time
