@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* add use_sim_time to robot_info
+* Contributors: antoniobrandi
+
 1.9.0 (2025-05-06)
 ------------------
 * fix slam launch_args
