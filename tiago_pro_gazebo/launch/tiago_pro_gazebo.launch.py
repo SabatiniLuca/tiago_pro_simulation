@@ -58,6 +58,7 @@ class LaunchArguments(LaunchArgumentsBase):
     wrist_model_left: DeclareLaunchArgument = TiagoProArgs.wrist_model_left
     camera_model: DeclareLaunchArgument = TiagoProArgs.camera_model
     laser_model: DeclareLaunchArgument = TiagoProArgs.laser_model
+    has_teleop_arms: DeclareLaunchArgument = TiagoProArgs.has_teleop_arms
 
     navigation: DeclareLaunchArgument = CommonArgs.navigation
     advanced_navigation: DeclareLaunchArgument = CommonArgs.advanced_navigation
@@ -184,7 +185,8 @@ def declare_actions(
             'end_effector_right': launch_args.end_effector_right,
             'end_effector_left': launch_args.end_effector_left,
             'ft_sensor_right': launch_args.ft_sensor_right,
-            'ft_sensor_left': launch_args.ft_sensor_left
+            'ft_sensor_left': launch_args.ft_sensor_left,
+	    'has_teleop_arms': launch_args.has_teleop_arms,
         },
         condition=IfCondition(LaunchConfiguration('moveit')))
 
@@ -213,7 +215,8 @@ def declare_actions(
             'laser_model': launch_args.laser_model,
             'camera_model': launch_args.camera_model,
             'base_type': launch_args.base_type,
-            'is_public_sim': launch_args.is_public_sim}
+            'is_public_sim': launch_args.is_public_sim},
+            'has_teleop_arms': launch_args.has_teleop_arms,
     )
 
     launch_description.add_action(tiago_bringup)
