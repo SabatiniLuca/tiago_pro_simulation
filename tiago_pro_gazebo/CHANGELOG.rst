@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.10.1 (2025-06-05)
+-------------------
 * Add pal_urdf_utils as env var path for gazebo
 * Contributors: Aina
 
