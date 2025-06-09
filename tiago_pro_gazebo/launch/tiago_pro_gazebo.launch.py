@@ -52,6 +52,8 @@ class LaunchArguments(LaunchArgumentsBase):
     end_effector_left: DeclareLaunchArgument = TiagoProArgs.end_effector_left
     ft_sensor_right: DeclareLaunchArgument = TiagoProArgs.ft_sensor_right
     ft_sensor_left: DeclareLaunchArgument = TiagoProArgs.ft_sensor_left
+    ft_sensor_teleop_left: DeclareLaunchArgument = TiagoProArgs.ft_sensor_teleop_left
+    ft_sensor_teleop_right: DeclareLaunchArgument = TiagoProArgs.ft_sensor_teleop_right
     tool_changer_right: DeclareLaunchArgument = TiagoProArgs.tool_changer_right
     tool_changer_left: DeclareLaunchArgument = TiagoProArgs.tool_changer_left
     wrist_model_right: DeclareLaunchArgument = TiagoProArgs.wrist_model_right
@@ -187,6 +189,8 @@ def declare_actions(
             'ft_sensor_right': launch_args.ft_sensor_right,
             'ft_sensor_left': launch_args.ft_sensor_left,
 	    'has_teleop_arms': launch_args.has_teleop_arms,
+            "ft_sensor_teleop_right": launch_args.ft_sensor_teleop_right,
+            "ft_sensor_teleop_left": launch_args.ft_sensor_teleop_left,
         },
         condition=IfCondition(LaunchConfiguration('moveit')))
 
@@ -208,7 +212,9 @@ def declare_actions(
             'end_effector_left': launch_args.end_effector_left,
             'ft_sensor_right': launch_args.ft_sensor_right,
             'ft_sensor_left': launch_args.ft_sensor_left,
-            'tool_changer_right': launch_args.tool_changer_right,
+            'tool_changer_right': launch_args.tool_changer_right
+            "ft_sensor_teleop_right": launch_args.ft_sensor_teleop_right,
+            "ft_sensor_teleop_left": launch_args.ft_sensor_teleop_left,
             'tool_changer_left': launch_args.tool_changer_left,
             'wrist_model_right': launch_args.wrist_model_right,
             'wrist_model_left': launch_args.wrist_model_left,
