@@ -67,6 +67,8 @@ class LaunchArguments(LaunchArgumentsBase):
     world_name: DeclareLaunchArgument = CommonArgs.world_name
     tuck_arm: DeclareLaunchArgument = CommonArgs.tuck_arm
     is_public_sim: DeclareLaunchArgument = CommonArgs.is_public_sim
+    rviz: DeclareLaunchArgument = CommonArgs.rviz
+    gzclient: DeclareLaunchArgument = CommonArgs.gzclient
 
 
 def private_navigation(context, *args, **kwargs):
@@ -184,6 +186,7 @@ def private_navigation(context, *args, **kwargs):
         )],
         parameters=[{'use_sim_time': LaunchConfiguration('use_sim_time')}],
         output='screen',
+        condition=IfCondition(LaunchConfiguration('rviz'))
     )
     actions.append(rviz_bringup_launch)
     return actions
@@ -218,6 +221,7 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
             "world_name":  launch_args.world_name,
             "model_paths": packages,
             "resource_paths": packages,
+            'gzclient': launch_args.gzclient,
         })
 
     launch_description.add_action(gazebo)
