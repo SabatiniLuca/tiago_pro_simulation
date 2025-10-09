@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.11.0 (2025-10-09)
+-------------------
 * added gzclient and rviz args
 * Contributors: martinaannicelli
 
