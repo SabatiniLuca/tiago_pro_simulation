@@ -84,15 +84,15 @@ def private_navigation(context, *args, **kwargs):
         rviz_cfg_pkg = base_type + '_advanced_2dnav'
 
     robot_info = {
-        "robot_info_publisher": {
-            "ros__parameters": {
-                "robot_type": "tiago_pro",
-                "base_type": base_type,
-                "laser_model": "sick-571",
-                "camera_model": camera_model,
-                "advanced_navigation": (advanced_navigation == 'True'),
-                "has_dock": (docking == 'True'),
-                "use_sim_time": (use_sim_time == 'True'),
+        'robot_info_publisher': {
+            'ros__parameters': {
+                'robot_type': 'tiago_pro',
+                'base_type': base_type,
+                'laser_model': 'sick-571',
+                'camera_model': camera_model,
+                'advanced_navigation': (advanced_navigation == 'True'),
+                'has_dock': (docking == 'True'),
+                'use_sim_time': (use_sim_time == 'True'),
             }
         }
     }
@@ -265,35 +265,35 @@ def declare_actions(
     launch_description: LaunchDescription, launch_args: LaunchArguments
 ):
     # Set use_sim_time to True
-    set_sim_time = SetLaunchConfiguration("use_sim_time", "True")
+    set_sim_time = SetLaunchConfiguration('use_sim_time', 'True')
     launch_description.add_action(set_sim_time)
 
     # Shows error if is_public_sim is not set to True when using public simulation
     public_sim_check = CheckPublicSim()
     launch_description.add_action(public_sim_check)
 
-    robot_name = "tiago_pro"
-    packages = ["tiago_pro_description", "pal_sea_arm_description",
-                "omni_base_description", "pal_pro_gripper_description",
-                "tiago_pro_head_description", "allegro_hand_description",
-                "pal_urdf_utils"]
+    robot_name = 'tiago_pro'
+    packages = ['tiago_pro_description', 'pal_sea_arm_description',
+                'omni_base_description', 'pal_pro_gripper_description',
+                'tiago_pro_head_description', 'allegro_hand_description',
+                'pal_urdf_utils']
 
     model_path = get_model_paths(packages)
 
     gazebo_model_path_env_var = SetEnvironmentVariable(
-        "GAZEBO_MODEL_PATH", model_path)
+        'GAZEBO_MODEL_PATH', model_path)
 
     gazebo = include_scoped_launch_py_description(
-        pkg_name="pal_gazebo_worlds",
-        paths=["launch", "pal_gazebo.launch.py"],
+        pkg_name='pal_gazebo_worlds',
+        paths=['launch', 'pal_gazebo.launch.py'],
         env_vars=[gazebo_model_path_env_var],
         launch_arguments={
-            "world_name":  launch_args.world_name,
-            "model_paths": packages,
-            "resource_paths": packages,
-            "gzclient": launch_args.gzclient,
+            'world_name':  launch_args.world_name,
+            'model_paths': packages,
+            'resource_paths': packages,
+            'gzclient': launch_args.gzclient,
         },
-        condition=UnlessNodeRunning("gazebo")
+        condition=UnlessNodeRunning('gazebo')
     )
 
     launch_description.add_action(gazebo)
@@ -316,56 +316,56 @@ def declare_actions(
     launch_description.add_action(navigation)
 
     move_group = include_scoped_launch_py_description(
-        pkg_name="tiago_pro_moveit_config",
-        paths=["launch", "move_group.launch.py"],
+        pkg_name='tiago_pro_moveit_config',
+        paths=['launch', 'move_group.launch.py'],
         launch_arguments={
-            "robot_name": robot_name,
-            "use_sim_time": LaunchConfiguration("use_sim_time"),
-            "base_type": launch_args.base_type,
-            "arm_type_right": launch_args.arm_type_right,
-            "arm_type_left": launch_args.arm_type_left,
-            "end_effector_right": launch_args.end_effector_right,
-            "end_effector_left": launch_args.end_effector_left,
-            "ft_sensor_right": launch_args.ft_sensor_right,
-            "ft_sensor_left": launch_args.ft_sensor_left
+            'robot_name': robot_name,
+            'use_sim_time': LaunchConfiguration('use_sim_time'),
+            'base_type': launch_args.base_type,
+            'arm_type_right': launch_args.arm_type_right,
+            'arm_type_left': launch_args.arm_type_left,
+            'end_effector_right': launch_args.end_effector_right,
+            'end_effector_left': launch_args.end_effector_left,
+            'ft_sensor_right': launch_args.ft_sensor_right,
+            'ft_sensor_left': launch_args.ft_sensor_left
         },
-        condition=IfCondition(LaunchConfiguration("moveit")))
+        condition=IfCondition(LaunchConfiguration('moveit')))
 
     launch_description.add_action(move_group)
 
     robot_spawn = include_scoped_launch_py_description(
-        pkg_name="tiago_pro_gazebo",
-        paths=["launch", "robot_spawn.launch.py"])
+        pkg_name='tiago_pro_gazebo',
+        paths=['launch', 'robot_spawn.launch.py'])
 
     launch_description.add_action(robot_spawn)
 
     tiago_bringup = include_scoped_launch_py_description(
-        pkg_name="tiago_pro_bringup", paths=["launch", "tiago_pro_bringup.launch.py"],
+        pkg_name='tiago_pro_bringup', paths=['launch', 'tiago_pro_bringup.launch.py'],
         launch_arguments={
-            "use_sim_time": LaunchConfiguration("use_sim_time"),
-            "arm_type_right": launch_args.arm_type_right,
-            "arm_type_left": launch_args.arm_type_left,
-            "end_effector_right": launch_args.end_effector_right,
-            "end_effector_left": launch_args.end_effector_left,
-            "ft_sensor_right": launch_args.ft_sensor_right,
-            "ft_sensor_left": launch_args.ft_sensor_left,
-            "tool_changer_right": launch_args.tool_changer_right,
-            "tool_changer_left": launch_args.tool_changer_left,
-            "wrist_model_right": launch_args.wrist_model_right,
-            "wrist_model_left": launch_args.wrist_model_left,
-            "laser_model": launch_args.laser_model,
-            "camera_model": launch_args.camera_model,
-            "base_type": launch_args.base_type,
-            "is_public_sim": launch_args.is_public_sim}
+            'use_sim_time': LaunchConfiguration('use_sim_time'),
+            'arm_type_right': launch_args.arm_type_right,
+            'arm_type_left': launch_args.arm_type_left,
+            'end_effector_right': launch_args.end_effector_right,
+            'end_effector_left': launch_args.end_effector_left,
+            'ft_sensor_right': launch_args.ft_sensor_right,
+            'ft_sensor_left': launch_args.ft_sensor_left,
+            'tool_changer_right': launch_args.tool_changer_right,
+            'tool_changer_left': launch_args.tool_changer_left,
+            'wrist_model_right': launch_args.wrist_model_right,
+            'wrist_model_left': launch_args.wrist_model_left,
+            'laser_model': launch_args.laser_model,
+            'camera_model': launch_args.camera_model,
+            'base_type': launch_args.base_type,
+            'is_public_sim': launch_args.is_public_sim}
     )
 
     launch_description.add_action(tiago_bringup)
 
     tuck_arm = Node(
-        package="tiago_pro_gazebo",
-        executable="tuck_arm.py",
+        package='tiago_pro_gazebo',
+        executable='tuck_arm.py',
         emulate_tty=True,
-        output="both",
+        output='both',
         condition=IfCondition(LaunchConfiguration('tuck_arm'))
     )
 
@@ -375,17 +375,17 @@ def declare_actions(
 
 
 def get_model_paths(packages_names):
-    model_paths = ""
+    model_paths = ''
     for package_name in packages_names:
-        if model_paths != "":
+        if model_paths != '':
             model_paths += pathsep
 
         package_path = get_package_prefix(package_name)
-        model_path = os.path.join(package_path, "share")
+        model_path = os.path.join(package_path, 'share')
 
         model_paths += model_path
 
-    if "GAZEBO_MODEL_PATH" in environ:
-        model_paths += pathsep + environ["GAZEBO_MODEL_PATH"]
+    if 'GAZEBO_MODEL_PATH' in environ:
+        model_paths += pathsep + environ['GAZEBO_MODEL_PATH']
 
     return model_paths
