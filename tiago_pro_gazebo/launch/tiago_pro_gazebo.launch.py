@@ -38,6 +38,7 @@ from launch_pal.actions import CheckPublicSim
 
 from launch_pal.arg_utils import LaunchArgumentsBase, read_launch_argument
 from launch_pal.robot_arguments import CommonArgs
+from launch_pal.conditions import UnlessNodeRunning
 from tiago_pro_description.launch_arguments import TiagoProArgs
 from dataclasses import dataclass
 from launch_ros.actions import Node
@@ -192,8 +193,77 @@ def private_navigation(context, *args, **kwargs):
     return actions
 
 
-def declare_actions(launch_description: LaunchDescription, launch_args: LaunchArguments):
+def public_navigation(context, *args, **kwargs):
+    actions = []
+    base_type = read_launch_argument('base_type', context)
+    base_2dnav = get_package_share_directory(base_type + '_2dnav')
+    pal_maps = get_package_share_directory('pal_maps')
+    world_name = read_launch_argument('world_name', context)
+    param_file = os.path.join(base_2dnav, 'config', 'nav_public_sim.yaml')
+    map_path = os.path.join(pal_maps, 'maps', world_name, 'map.yaml')
 
+    # Navigation
+    nav2_bringup_launch = include_scoped_launch_py_description(
+        pkg_name='nav2_bringup',
+        paths=['launch', 'navigation_launch.py'],
+        launch_arguments={
+            'params_file': param_file,
+            'use_sim_time': LaunchConfiguration('use_sim_time'),
+        }
+    )
+    actions.append(nav2_bringup_launch)
+
+    # Localization
+    loc_bringup_launch = include_scoped_launch_py_description(
+        pkg_name='nav2_bringup',
+        paths=['launch', 'localization_launch.py'],
+        launch_arguments={
+            'params_file': param_file,
+            'map': map_path,
+            'use_sim_time': LaunchConfiguration('use_sim_time'),
+        },
+        condition=UnlessCondition(LaunchConfiguration('slam')),
+    )
+    actions.append(loc_bringup_launch)
+
+    # SLAM
+    slam_bringup_launch = include_scoped_launch_py_description(
+        pkg_name='nav2_bringup',
+        paths=['launch', 'slam_launch.py'],
+        launch_arguments={
+            'params_file': param_file,
+            'use_sim_time': LaunchConfiguration('use_sim_time'),
+        },
+        condition=IfCondition(LaunchConfiguration('slam')),
+    )
+    actions.append(slam_bringup_launch)
+
+    # RViz
+    rviz_bringup_launch = include_scoped_launch_py_description(
+        pkg_name='nav2_bringup',
+        paths=['launch', 'rviz_launch.py'],
+        condition=IfCondition(LaunchConfiguration('rviz'))
+    )
+    actions.append(rviz_bringup_launch)
+    return actions
+
+
+def generate_launch_description():
+
+    # Create the launch description and populate
+    ld = LaunchDescription()
+    launch_arguments = LaunchArguments()
+
+    launch_arguments.add_to_launch_description(ld)
+
+    declare_actions(ld, launch_arguments)
+
+    return ld
+
+
+def declare_actions(
+    launch_description: LaunchDescription, launch_args: LaunchArguments
+):
     # Set use_sim_time to True
     set_sim_time = SetLaunchConfiguration("use_sim_time", "True")
     launch_description.add_action(set_sim_time)
@@ -221,8 +291,10 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
             "world_name":  launch_args.world_name,
             "model_paths": packages,
             "resource_paths": packages,
-            'gzclient': launch_args.gzclient,
-        })
+            "gzclient": launch_args.gzclient,
+        },
+        condition=UnlessNodeRunning("gazebo")
+    )
 
     launch_description.add_action(gazebo)
 
@@ -233,6 +305,11 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
             OpaqueFunction(
                 function=private_navigation,
                 condition=UnlessCondition(LaunchConfiguration('is_public_sim'))
+            ),
+            # Public Navigation
+            OpaqueFunction(
+                function=public_navigation,
+                condition=IfCondition(LaunchConfiguration('is_public_sim'))
             ),
         ]
     )
@@ -312,32 +389,3 @@ def get_model_paths(packages_names):
         model_paths += pathsep + environ["GAZEBO_MODEL_PATH"]
 
     return model_paths
-
-
-def get_resource_paths(packages_names):
-    resource_paths = ""
-    for package_name in packages_names:
-        if resource_paths != "":
-            resource_paths += pathsep
-
-        package_path = get_package_prefix(package_name)
-        resource_paths += package_path
-
-    if "GAZEBO_RESOURCE_PATH" in environ:
-        resource_paths += pathsep + environ["GAZEBO_RESOURCE_PATH"]
-
-    return resource_paths
-
-
-def generate_launch_description():
-
-    # Create the launch description
-    ld = LaunchDescription()
-
-    launch_arguments = LaunchArguments()
-
-    launch_arguments.add_to_launch_description(ld)
-
-    declare_actions(ld, launch_arguments)
-
-    return ld
