@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* added missing dep for public sim
+* Contributors: andreacapodacqua
+
 1.11.1 (2025-10-14)
 -------------------
 * allegro hand dep released
