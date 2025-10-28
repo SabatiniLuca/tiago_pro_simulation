@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add condition for allegro hand on public simulation
+* Contributors: Noel Jimenez
+
 1.12.1 (2025-10-28)
 -------------------
 * Add condition for allegro_hand dependency
