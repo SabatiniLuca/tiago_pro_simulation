@@ -2,6 +2,12 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Revert "Merge branch 'feat/aca/missing-dep-public-sim' into 'humble-devel'"
+  This reverts merge request !49
+* Contributors: antoniobrandi
+
 1.11.2 (2025-10-27)
 -------------------
 * added missing dep for public sim
