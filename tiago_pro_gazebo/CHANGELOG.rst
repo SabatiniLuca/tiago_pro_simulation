@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add condition for allegro_hand dependency
+* Contributors: Noel Jimenez
+
 1.12.0 (2025-10-28)
 -------------------
 * Revert "Merge branch 'feat/aca/missing-dep-public-sim' into 'humble-devel'"
