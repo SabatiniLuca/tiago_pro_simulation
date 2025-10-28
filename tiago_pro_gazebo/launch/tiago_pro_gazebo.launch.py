@@ -261,6 +261,42 @@ def generate_launch_description():
     return ld
 
 
+def gazebo(context, *args, **kwargs):
+    actions = []
+
+    world_name = read_launch_argument('world_name', context)
+    gzclient = read_launch_argument('gzclient', context)
+    is_public_sim = read_launch_argument('is_public_sim', context)
+
+    packages = ['tiago_pro_description', 'pal_sea_arm_description',
+                'omni_base_description', 'pal_pro_gripper_description',
+                'tiago_pro_head_description', 'pal_urdf_utils']
+
+    if not is_public_sim == 'True':
+        packages.append('allegro_hand_description')
+
+    model_path = get_model_paths(packages)
+
+    gazebo_model_path_env_var = SetEnvironmentVariable(
+        'GAZEBO_MODEL_PATH', model_path)
+
+    gazebo = include_scoped_launch_py_description(
+        pkg_name='pal_gazebo_worlds',
+        paths=['launch', 'pal_gazebo.launch.py'],
+        env_vars=[gazebo_model_path_env_var],
+        launch_arguments={
+            'world_name':  world_name,
+            'model_paths': packages,
+            'resource_paths': packages,
+            'gzclient': gzclient,
+        },
+        condition=UnlessNodeRunning('gazebo')
+    )
+
+    actions.append(gazebo)
+    return actions
+
+
 def declare_actions(
     launch_description: LaunchDescription, launch_args: LaunchArguments
 ):
@@ -273,30 +309,8 @@ def declare_actions(
     launch_description.add_action(public_sim_check)
 
     robot_name = 'tiago_pro'
-    packages = ['tiago_pro_description', 'pal_sea_arm_description',
-                'omni_base_description', 'pal_pro_gripper_description',
-                'tiago_pro_head_description', 'allegro_hand_description',
-                'pal_urdf_utils']
 
-    model_path = get_model_paths(packages)
-
-    gazebo_model_path_env_var = SetEnvironmentVariable(
-        'GAZEBO_MODEL_PATH', model_path)
-
-    gazebo = include_scoped_launch_py_description(
-        pkg_name='pal_gazebo_worlds',
-        paths=['launch', 'pal_gazebo.launch.py'],
-        env_vars=[gazebo_model_path_env_var],
-        launch_arguments={
-            'world_name':  launch_args.world_name,
-            'model_paths': packages,
-            'resource_paths': packages,
-            'gzclient': launch_args.gzclient,
-        },
-        condition=UnlessNodeRunning('gazebo')
-    )
-
-    launch_description.add_action(gazebo)
+    launch_description.add_action(OpaqueFunction(function=gazebo))
 
     navigation = GroupAction(
         condition=IfCondition(LaunchConfiguration('navigation')),
