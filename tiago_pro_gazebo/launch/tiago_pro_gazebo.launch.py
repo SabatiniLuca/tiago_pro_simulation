@@ -215,7 +215,7 @@ def declare_actions(
             'end_effector_left': launch_args.end_effector_left,
             'ft_sensor_right': launch_args.ft_sensor_right,
             'ft_sensor_left': launch_args.ft_sensor_left,
-            'tool_changer_right': launch_args.tool_changer_right
+            'tool_changer_right': launch_args.tool_changer_right,
             'ft_sensor_teleop_right': launch_args.ft_sensor_teleop_right,
             'ft_sensor_teleop_left': launch_args.ft_sensor_teleop_left,
             'tool_changer_left': launch_args.tool_changer_left,
