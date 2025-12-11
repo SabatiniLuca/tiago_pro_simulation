@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.13.0 (2025-12-11)
+-------------------
 * Point Cloud filter pipeline
 * Contributors: antoniobrandi
 
