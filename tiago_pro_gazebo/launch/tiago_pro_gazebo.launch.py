@@ -190,7 +190,6 @@ def declare_actions(
             'end_effector_left': launch_args.end_effector_left,
             'ft_sensor_right': launch_args.ft_sensor_right,
             'ft_sensor_left': launch_args.ft_sensor_left,
-	    'has_teleop_arms': launch_args.has_teleop_arms,
             'ft_sensor_teleop_right': launch_args.ft_sensor_teleop_right,
             'ft_sensor_teleop_left': launch_args.ft_sensor_teleop_left,
             'has_teleop_arms': launch_args.has_teleop_arms,
@@ -224,8 +223,8 @@ def declare_actions(
             'laser_model': launch_args.laser_model,
             'camera_model': launch_args.camera_model,
             'base_type': launch_args.base_type,
-            'is_public_sim': launch_args.is_public_sim},
-            'has_teleop_arms': launch_args.has_teleop_arms,
+            'is_public_sim': launch_args.is_public_sim,
+            'has_teleop_arms': launch_args.has_teleop_arms}
     )
 
     launch_description.add_action(tiago_bringup)
