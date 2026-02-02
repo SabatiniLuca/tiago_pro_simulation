@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.14.0 (2026-02-02)
+-------------------
 * add end_effectors_teleop in the gazebo launch
 * fix launch file typos
 * fix missing comma
