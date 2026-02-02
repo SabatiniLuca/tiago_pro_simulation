@@ -2,6 +2,16 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* add end_effectors_teleop in the gazebo launch
+* fix launch file typos
+* fix missing comma
+* add TiagoProArgs ee teleop
+* add ft sensors in sim
+* add teleop in simulation
+* Contributors: ileniaperrella
+
 1.13.1 (2025-12-15)
 -------------------
 * missing deps
