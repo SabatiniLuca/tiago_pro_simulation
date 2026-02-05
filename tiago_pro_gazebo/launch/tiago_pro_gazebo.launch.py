@@ -237,7 +237,7 @@ def declare_actions(
         condition=IfCondition(LaunchConfiguration('tuck_arm'))
     )
 
-   # launch_description.add_action(tuck_arm)
+    launch_description.add_action(tuck_arm)
 
     return
 
