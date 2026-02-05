@@ -2,6 +2,12 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* uncomment tuck arm
+* remove end effectors teleop station - add wrist
+* Contributors: ileniaperrella
+
 1.14.0 (2026-02-02)
 -------------------
 * add end_effectors_teleop in the gazebo launch
