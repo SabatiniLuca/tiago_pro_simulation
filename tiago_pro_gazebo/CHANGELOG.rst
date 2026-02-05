@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.14.1 (2026-02-05)
+-------------------
 * uncomment tuck arm
 * remove end effectors teleop station - add wrist
 * Contributors: ileniaperrella
