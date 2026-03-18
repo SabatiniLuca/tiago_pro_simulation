@@ -2,6 +2,11 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add support for short-wrist
+* Contributors: Noel Jimenez
+
 1.14.1 (2026-02-05)
 -------------------
 * uncomment tuck arm
