@@ -192,6 +192,8 @@ def declare_actions(
             'ft_sensor_teleop_right': launch_args.ft_sensor_teleop_right,
             'ft_sensor_teleop_left': launch_args.ft_sensor_teleop_left,
             'has_teleop_arms': launch_args.has_teleop_arms,
+            'wrist_model_right': launch_args.wrist_model_right,
+            'wrist_model_left': launch_args.wrist_model_left,
         },
         condition=IfCondition(LaunchConfiguration('moveit')))
 
