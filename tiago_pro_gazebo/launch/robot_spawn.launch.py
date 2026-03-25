@@ -21,12 +21,16 @@ from launch import LaunchDescription
 from launch_ros.actions import Node
 from dataclasses import dataclass
 from launch.conditions import LaunchConfigurationEquals
-from launch_pal.arg_utils import DeclareLaunchArgument, LaunchArgumentsBase, LaunchConfiguration, LaunchConfiguration
+from launch_pal.arg_utils import DeclareLaunchArgument, LaunchArgumentsBase, LaunchConfiguration
 from launch_pal.robot_arguments import CommonArgs
 
 
 @dataclass(frozen=True)
 class LaunchArguments(LaunchArgumentsBase):
+    robot_name: DeclareLaunchArgument = DeclareLaunchArgument(
+        name="robot_name", description="Gazebo model name"
+    )
+
     gazebo_version: DeclareLaunchArgument = CommonArgs.gazebo_version
 
 
@@ -54,7 +58,6 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
                         condition=LaunchConfigurationEquals('gazebo_version', 'classic'),)
     launch_description.add_action(robot_entity)
 
-
     gazebo_spawn_robot = Node(
         package="ros_gz_sim",
         executable="create",
@@ -69,14 +72,14 @@ def declare_actions(launch_description: LaunchDescription, launch_args: LaunchAr
     )
     launch_description.add_action(gazebo_spawn_robot)
 
-
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
         name='bridge_ros_gz',
         parameters=[{
             'config_file': os.path.join(
-                get_package_share_directory('tiago_pro_gazebo'), 'config', 'tiago_gz_bridge.yaml'),
+                get_package_share_directory('tiago_pro_gazebo'),
+                'config', 'tiago_pro_gz_bridge.yaml'),
             'use_sim_time': True,
         }],
         output='screen',

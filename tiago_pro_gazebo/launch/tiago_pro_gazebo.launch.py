@@ -132,7 +132,6 @@ def start_gazebo(context, *args, **kwargs):
     return [gazebo]
 
 
-
 def declare_actions(
     launch_description: LaunchDescription, launch_args: LaunchArguments
 ):
@@ -212,8 +211,7 @@ def declare_actions(
         paths=['launch', 'robot_spawn.launch.py'],
         launch_arguments={
             'robot_name': robot_name,
-            'gazebo_version': launch_args.gazebo_version,
-
+            'gazebo_version': LaunchConfiguration('gazebo_version'),
         }
     )
 
@@ -239,6 +237,7 @@ def declare_actions(
             'camera_model': launch_args.camera_model,
             'base_type': launch_args.base_type,
             'is_public_sim': launch_args.is_public_sim,
+            'gazebo_version': launch_args.gazebo_version,
             'has_teleop_arms': launch_args.has_teleop_arms,
             'has_wrist_camera': launch_args.has_wrist_camera}
     )
