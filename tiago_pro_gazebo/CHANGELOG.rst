@@ -2,8 +2,8 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+1.16.0 (2026-03-30)
+-------------------
 * Add gz bridge
 * New gazebo
 * Contributors: thomaspeyrucain
