@@ -2,6 +2,12 @@
 Changelog for package tiago_pro_gazebo
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Add gz bridge
+* New gazebo
+* Contributors: thomaspeyrucain
+
 1.15.0 (2026-03-18)
 -------------------
 * Add support for short-wrist
