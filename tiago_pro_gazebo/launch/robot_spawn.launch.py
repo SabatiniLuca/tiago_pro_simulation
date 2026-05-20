@@ -39,12 +39,21 @@ def generate_launch_description():
 
 def declare_actions(launch_description: LaunchDescription, launch_args: LaunchArguments):
 
+    # Original code - spawns robot with default extended arm pose:
     robot_entity = Node(package="gazebo_ros", executable="spawn_entity.py",
                         arguments=["-topic", "robot_description",
                                    "-entity", "tiago-pro",
-                                   #    "-x", "0.0", "-y", "0.0", "-z", "0.08",
+                                   "-x", "0.0", "-y", "1.85", "-z", "0.03",
+                                   "-Y", "-1.5708",  # Yaw in radians
                                    ],
                         output="screen")
     launch_description.add_action(robot_entity)
+
+    # NOTE: Initial joint state approach using -J flag doesn't work with this version of Gazebo.
+    # Alternative approaches to spawn in home pose:
+    # 1. Use tuck_arm.py (current approach) - sends home motion after spawn
+    # 2. Create Gazebo SDF file with initial poses
+    # 3. Use a gazebo plugin to set initial states
+    # The tuck_arm approach is the most reliable and is already configured.
 
     return

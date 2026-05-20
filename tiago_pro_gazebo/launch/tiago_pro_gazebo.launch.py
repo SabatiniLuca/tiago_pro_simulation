@@ -62,6 +62,7 @@ class LaunchArguments(LaunchArgumentsBase):
     laser_model: DeclareLaunchArgument = TiagoProArgs.laser_model
     has_teleop_arms: DeclareLaunchArgument = TiagoProArgs.has_teleop_arms
     has_wrist_camera: DeclareLaunchArgument = TiagoProArgs.has_wrist_camera
+    use_sensor_manager: DeclareLaunchArgument = CommonArgs.use_sensor_manager
 
     navigation: DeclareLaunchArgument = CommonArgs.navigation
     advanced_navigation: DeclareLaunchArgument = CommonArgs.advanced_navigation
@@ -128,9 +129,29 @@ def gazebo(context, *args, **kwargs):
 def declare_actions(
     launch_description: LaunchDescription, launch_args: LaunchArguments
 ):
-    # Set use_sim_time to True
-    set_sim_time = SetLaunchConfiguration('use_sim_time', 'True')
-    launch_description.add_action(set_sim_time)
+    # Default launch parameter overrides for this simulation setup.
+    default_launch_configs = {
+    'use_sim_time': 'True',
+    'is_public_sim': 'True',
+    'world_name': 'spool_change_environment',
+    'moveit': 'True',
+    'navigation': 'True',
+    
+    # GUI Controls
+    'gzclient': 'True',   # Disables the Gazebo Window
+    'gui': 'True',        # Disables the Gazebo Window (backup key)
+    'rviz': 'False',        # Keeps Rviz Open
+    
+    'slam': 'False',
+    'use_sensor_manager': 'True',
+}
+
+    for config_name, config_value in default_launch_configs.items():
+        launch_description.add_action(
+            SetLaunchConfiguration(config_name, config_value)
+        )
+
+
 
     # Shows error if is_public_sim is not set to True when using public simulation
     public_sim_check = CheckPublicSim()
@@ -176,6 +197,15 @@ def declare_actions(
     )
     launch_description.add_action(private_navigation_launch)
 
+    # #starts publicing filtered data from the lasers 
+    # filter_lasers_launch = include_scoped_launch_py_description(
+    #     pkg_name='tiago_pro_gazebo',
+    #     paths=['launch', 'dual_laser_filter.launch.py']
+    # )
+    # launch_description.add_action(filter_lasers_launch)
+
+
+
     move_group = include_scoped_launch_py_description(
         pkg_name='tiago_pro_moveit_config',
         paths=['launch', 'move_group.launch.py'],
@@ -192,9 +222,9 @@ def declare_actions(
             'ft_sensor_teleop_right': launch_args.ft_sensor_teleop_right,
             'ft_sensor_teleop_left': launch_args.ft_sensor_teleop_left,
             'has_teleop_arms': launch_args.has_teleop_arms,
+            'use_sensor_manager': launch_args.use_sensor_manager,
         },
         condition=IfCondition(LaunchConfiguration('moveit')))
-
     launch_description.add_action(move_group)
 
     robot_spawn = include_scoped_launch_py_description(
@@ -238,6 +268,25 @@ def declare_actions(
     )
 
     launch_description.add_action(tuck_arm)
+
+    initial_pose = Node(
+        package='tiago_pro_gazebo',
+        executable='publish_initial_pose.py',
+        output='screen'
+    )
+    launch_description.add_action(initial_pose)
+
+    # rviz_moveit_launch = include_scoped_launch_py_description(
+    #     pkg_name='tiago_pro_moveit_config',
+    #     paths=['launch', 'moveit_rviz.launch.py'],
+    #     launch_arguments={
+    #         'robot_name': robot_name,
+    #         'use_sim_time': LaunchConfiguration('use_sim_time'),
+    #     }
+    # )
+    # launch_description.add_action(rviz_moveit_launch)
+
+
 
     return
 

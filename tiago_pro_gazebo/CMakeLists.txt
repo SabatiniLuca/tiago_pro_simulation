@@ -5,8 +5,13 @@ find_package(ament_cmake_auto REQUIRED)
 ament_auto_find_build_dependencies()
 
 install(
-  PROGRAMS scripts/tuck_arm.py
+  PROGRAMS scripts/tuck_arm.py scripts/publish_initial_pose.py
   DESTINATION lib/${PROJECT_NAME}
+)
+
+install(
+  FILES ../../my_map_smallbox.yaml ../../my_map_smallbox.pgm
+  DESTINATION share/${PROJECT_NAME}
 )
 
 if(BUILD_TESTING)

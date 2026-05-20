@@ -14,10 +14,10 @@
 
 from dataclasses import dataclass
 
-from ament_index_python.packages import get_package_share_directory
+from ament_index_python.packages import PackageNotFoundError, get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument
+from launch.actions import DeclareLaunchArgument, LogInfo
 from launch.conditions import IfCondition, UnlessCondition
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution, PythonExpression
 from launch_ros.substitutions import FindPackageShare
@@ -50,9 +50,15 @@ def generate_launch_description():
 def declare_actions(
     launch_description: LaunchDescription, launch_args: LaunchArguments
 ):
+    try:
+        get_package_share_directory('nav2_bringup')
+    except PackageNotFoundError:
+        launch_description.add_action(LogInfo(msg='nav2_bringup is not installed, skipping public navigation launch.'))
+        return
+
     public_nav_params = PathJoinSubstitution([
-        FindPackageShare(PythonExpression(["'", LaunchConfiguration('base_type'), "'_2dnav"])),
-        'config',
+        FindPackageShare('tiago_pro_gazebo'),
+        'launch',
         'nav_public_sim.yaml',
     ])
 
@@ -75,10 +81,8 @@ def declare_actions(
         launch_arguments={
             'params_file': public_nav_params,
             'map': PathJoinSubstitution([
-                get_package_share_directory('pal_maps'),
-                'maps',
-                LaunchConfiguration('world_name'),
-                'map.yaml'
+                FindPackageShare('tiago_pro_gazebo'),
+                'my_map_smallbox.yaml',
             ]),
             'use_sim_time': LaunchConfiguration('use_sim_time'),
             'world_name': LaunchConfiguration('world_name'),
