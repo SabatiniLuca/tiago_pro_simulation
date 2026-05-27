@@ -82,7 +82,8 @@ def declare_actions(
             'params_file': public_nav_params,
             'map': PathJoinSubstitution([
                 FindPackageShare('tiago_pro_gazebo'),
-                'my_map_smallbox.yaml',
+                # 'my_map_smallbox.yaml',
+                'map_with_machine.yaml'
             ]),
             'use_sim_time': LaunchConfiguration('use_sim_time'),
             'world_name': LaunchConfiguration('world_name'),

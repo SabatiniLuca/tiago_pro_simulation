@@ -78,7 +78,7 @@ def generate_launch_description():
     )
     
     # World file path
-    world_file = os.path.join(pal_gazebo_worlds_pkg, 'worlds', 'pal_office.world')
+    world_file = os.path.join(pal_gazebo_worlds_pkg, 'worlds', 'load_spool.world')
     
     # Gazebo server
     gzserver = IncludeLaunchDescription(
@@ -118,8 +118,8 @@ def generate_launch_description():
         arguments=[
             '-topic', 'robot_description',
             '-entity', 'tiago_pro',
-            '-x', '0.0',
-            '-y', '0.0',
+            '-x', '2.0',
+            '-y', '2.0',
             '-z', '0.0',
         ],
         output='screen'

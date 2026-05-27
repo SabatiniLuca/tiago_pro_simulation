@@ -133,10 +133,12 @@ def declare_actions(
     default_launch_configs = {
     'use_sim_time': 'True',
     'is_public_sim': 'True',
-    'world_name': 'spool_change_environment',
+    # 'world_name': 'spool_change_environment',
+    'world_name': 'load_spool',
+    # 'world_name': 'factory',
     'moveit': 'True',
     'navigation': 'True',
-    
+    'slam': 'True',
     # GUI Controls
     'gzclient': 'True',   # Disables the Gazebo Window
     'gui': 'True',        # Disables the Gazebo Window (backup key)
